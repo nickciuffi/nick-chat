@@ -1,0 +1,17 @@
+body, html, #root{
+    height: 100vh;
+    padding: 0px;
+}
+#root{
+    display: flex;
+    flex-direction: column;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #f8f8f8;
+    color: #29292e;
+}

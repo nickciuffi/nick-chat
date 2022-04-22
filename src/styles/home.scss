@@ -1,0 +1,92 @@
+@import "./variables";
+
+.home{
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+
+    .home-content{
+        
+        height: 50%;
+        margin-top:100px;
+        padding: 0px 10%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: 50px;
+        align-items: center;
+
+        button{
+            padding: 20px;
+            border-radius: 20px;
+            border: 4px solid $secondary-color;
+            background-color: #fff;
+            color: $secondary-color;
+            font-size:1.5rem;
+            cursor: pointer;
+            transition: filter .5s;
+
+            &:hover{
+                filter:brightness(.9);
+            }
+        }
+
+        .divider{
+            font-size:1.9rem;
+            display: flex;
+            width: 60%;
+            align-items: center;
+
+            &::before{
+                content: '';
+                flex: 1;
+                height: 2px;
+                margin-right: 16px;
+                background: #a8a8b3;
+            }
+            
+            &::after{
+                content: '';
+                flex: 1;
+                height: 2px;
+                margin-left: 16px;
+                background: #a8a8b3;
+            }
+        }
+        
+    }
+
+    h2{
+        
+        font-weight: 700;
+        text-align: center;
+        width: 100%;
+        margin-top:50px;
+        font-size: 2.4rem;
+        color: $secondary-color;
+    }
+
+    .enter-chat{
+        display: flex;
+        flex-direction:column;
+        gap: 15px;
+        align-items: center;
+
+
+        input{
+            padding: 10px;
+            font-size:1.5rem;
+            border-radius: 20px;
+            border: 2px solid $secondary-color;
+            color: rgb(94, 91, 91);
+        }
+    }
+
+}
+@media screen and (max-width: 700px){
+    .home{
+      
+        .home-content{
+            
+            margin-top:70px;
+        }
+}}

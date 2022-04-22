@@ -1,0 +1,53 @@
+.header{
+    background: rgb(69, 71, 69);
+    display:flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+    max-height: 100px;
+    position: fixed;
+    width: 100%;
+
+    .user{
+       
+        height: 100%;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+
+        img{
+            border-radius: 50%;
+            height: 60px;
+        }
+        p, .not-logged{
+            color: white;
+            height: min-content;
+            font-size: 1.4rem;
+        }
+        .not-logged{
+            line-height: 55px;
+        }
+    }
+
+    a{
+       
+        svg{
+            width: 60px;
+            height: 60px;
+        }
+    }
+}
+
+@media screen and (max-width: 700px){
+    .header{
+
+        .user{
+           
+           
+            .logged{
+                display: none;
+                
+            }
+        }
+    
+    }
+}

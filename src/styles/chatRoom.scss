@@ -1,0 +1,89 @@
+@import "./variables.scss";
+
+.chat{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    .msg-sender{
+        width: 100%;
+        background-color: rgb(94, 91, 91);
+        display:flex;
+        flex-direction: row;
+        position: fixed;
+        gap: 10px;
+        padding: 15px;
+        bottom: 0;
+        left: 0px;
+        z-index: 5000000;
+
+        input{
+            flex: 9;
+            padding: 10px;
+            font-size:1.5rem;
+            color: white;
+            border: none;
+            border-radius:10px;
+            background-color: rgb(65, 64, 64);
+            cursor:text;
+        }
+        button{
+            flex: 1;
+            background-color: rgb(65, 64, 64);
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5rem;
+            border-radius:10px;
+        }
+    }
+
+    .messages{
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        padding: 30px 30px;
+        margin-bottom:60px;
+        margin-top: 100px;
+    }
+}
+
+@media screen and (max-width: 700px){
+    .msg-sender{
+        min-width: none;
+        width: 100%;
+        background-color: rgb(94, 91, 91);
+        display:flex;
+        flex-direction: row;
+        position: fixed;
+        gap: 10px;
+        padding: 15px;
+        bottom: 0;
+        left: 0px;
+        z-index: 5000000;
+
+        input{
+            min-width: 0px;
+            flex: 8;
+            padding: 10px;
+            font-size:1.4rem !important;
+            color: white;
+            border: none;
+            border-radius:10px;
+            background-color: rgb(65, 64, 64);
+            cursor:text;
+        }
+        button{
+            flex: 1;
+            background-color: rgb(65, 64, 64);
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.3rem !important;
+            padding: 0px 4px;
+            border-radius:10px;
+        }
+    }
+
+}
