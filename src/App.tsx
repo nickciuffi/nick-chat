@@ -7,7 +7,7 @@ import './styles/global.scss'
 import {
   BrowserRouter as Router,
   Route,
-  Routes
+  Routes,
 } from "react-router-dom";
 
 

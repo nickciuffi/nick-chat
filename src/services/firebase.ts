@@ -1,6 +1,7 @@
 import {initializeApp} from "firebase/app";
 import {getDatabase, ref, set, get, child, push, onValue} from "firebase/database";
-import {getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
+import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from "firebase/auth";
+import {getStorage, ref as refStorage, uploadBytes, getDownloadURL} from 'firebase/storage';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -15,11 +16,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
-const auth = getAuth()
-
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp)
+const storage = getStorage()
 const database = getDatabase();
 
 
 
-export {auth, database, ref, set, get, child,push, onValue, GoogleAuthProvider, signInWithPopup}
+export {auth, signOut, database, ref, set, get, child,push, onValue, GoogleAuthProvider, signInWithPopup, storage, refStorage, uploadBytes, getDownloadURL}

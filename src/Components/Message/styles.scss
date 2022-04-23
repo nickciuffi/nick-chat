@@ -3,10 +3,45 @@
 .message{
     color: #fff;
     font-size:1.5rem;
-    width: 60%;
+    width: 55%;
     padding:10px;
     border-radius: 10px;
-    overflow: hidden;
+    word-wrap: break-word;
+
+    a{
+        background: transparent;
+        border: none;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+       
+        img{
+            margin: 20px 15%;
+            width: 70%;
+            min-height: 300px;
+            max-height: 600px;
+            
+
+            &.big-image{
+                position:fixed;
+
+                height: 65%;
+                width: unset;
+                max-width: 90%;
+                max-height: unset;
+                margin: 0;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 500;
+                background-color: rgba(0, 0, 0, 0.8);
+                animation: becomebig 1s;
+            }
+        }
+
+    }
+    
+
 }
 .send{
     background-color: $secondary-color;
@@ -15,4 +50,44 @@
 }
 .received{
     background-color: rgb(61, 60, 60);
+}
+
+@media screen and (max-width:700px){
+    .message{
+        a{
+        img{
+            margin: 20px 3%;
+            width: 94%;
+            min-height: 120px;
+            max-height: 300px;
+
+            &.big-image{
+                position:fixed;
+               
+                height: unset;
+                width: 90%;
+                max-height: 70%;
+                max-width: unset;
+                margin: 0;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 500;
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+        }
+
+    }
+    }
+}
+
+@keyframes becomebig{
+    0% {
+        opacity: 0;
+        top: 100%;
+    }
+    100% {
+        opacity: 1;
+        top: 50%;
+    }
 }

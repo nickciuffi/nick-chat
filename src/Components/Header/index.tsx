@@ -1,12 +1,22 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import Logo from '../../assets/images/logo.svg'
 import { useAuth } from '../../hooks/useAuth'
 import './index.scss'
+import {auth, signOut} from '../../services/firebase'
 
 export default function Header() {
 
     const {user} = useAuth()
+    const navigate = useNavigate();
+
+    async function handleLogOut(){
+      await signOut(auth).then(() => {
+        navigate("/login")
+      }).catch((error) => {
+        console.log(error)
+      });
+    }
 
   return (
     <div className="header">
@@ -16,10 +26,23 @@ export default function Header() {
         <div className="user">
             {user?.name !== "noUser"?
             <>
+            <a onClick={() =>{
+              const drop = document.querySelector(".drop-header");
+              if(drop?.classList.contains("visible")){
+                drop.classList.remove("visible");
+              }
+              else{
+              drop?.classList.add("visible")
+              }
+            }}>
             <img src={user?.avatar} alt="User avatar" />
+            </a>
+            <div className="drop-header">
             <p className="logged">
             {user?.name}    
             </p>
+            <a onClick={() =>handleLogOut()}>Sair</a>
+            </div>
             </>
             :
             <p className="not-logged">Not logged</p>
