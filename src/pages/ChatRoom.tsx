@@ -2,10 +2,11 @@ import {useParams, useNavigate} from 'react-router-dom'
 import Header from '../Components/Header'
 import Message from '../Components/Message'
 import {useState, useEffect, FormEvent, EventHandler} from 'react'
-import {database, ref, onValue, push, child, storage, refStorage, uploadBytes} from '../services/firebase'
+import {firestore, getDoc, addDoc, doc, collection, storage, refStorage, uploadBytes} from '../services/firebase'
 import '../styles/chatRoom.scss'
 import {useAuth} from '../hooks/useAuth'
 import {IoMdSend, IoMdPhotos} from 'react-icons/io'
+import { getDocs } from 'firebase/firestore'
 
 
 type RoomParams = {
@@ -42,27 +43,30 @@ export default function ChatRoom(){
       }, [user])
 
     useEffect(() =>{
-        const starCountRef = ref(database, `chats/${chatCode}/messages`);
-        onValue(starCountRef, (snapshot) => {
-            if(snapshot.exists()){
-            var keyMessages = 0;
-            const messagesFixed = Object.entries(snapshot.val()).map((value:any) =>{
-                keyMessages++;
-                return{
-                    id:value[0],
-                    key:keyMessages,
-                    content: value[1].content,
-                    author: value[1].author,
-                    hasImage:value[1].hasImage,
-                    }
-                    
-            });
-            
-            setMessages(messagesFixed)
-            
-            }
-        })
+        getMessages()
+        
+           
     }, [])
+
+    async function getMessages(){
+        const messagesRef = await getDocs(collection(firestore, "rooms"));
+        const docRef = collection(firestore, "rooms", "user1_id-user2_id", "messages");
+        const docSnap = await getDocs(docRef);
+
+        let keyMessages = 0
+        const messagesToAdd = await docSnap.docs.map((doc) =>{
+            keyMessages++;
+            return{
+                id:doc.id,
+                key:keyMessages,
+                content: doc.data().content,
+                author: doc.data().author,
+                hasImage:doc.data().hasImage,
+                }
+                   
+        })
+        setMessages(messagesToAdd)
+    }
 
 
     async function handleSendMessage(event:FormEvent){
@@ -70,17 +74,26 @@ export default function ChatRoom(){
         const hasImg = (newImage !== undefined)
         if(newMessage === "" && !hasImg) return
         
-        const dbRef = ref(database);
+        /*const dbRef = ref(database);
         const chatRoom = push(child(dbRef, `chats/${chatCode}/messages`), {
             content: newMessage,
             author:user?.id,
             hasImage:hasImg,
-          })
+          }) 
           if(hasImg){
-            sendImage(chatRoom.key);
+            sendImage(message.key);
+
+        }*/
+        const colRef = collection(firestore, "rooms", "user1_id-user2_id", "messages");
+        const docRef = await addDoc(colRef, {
+            content: newMessage,
+            author:user?.id,
+            hasImage:hasImg,
+          });
+          if(hasImg){
+            sendImage(docRef.id);
 
         }
-          
           setNewMessage("");
     }
 
@@ -89,8 +102,7 @@ export default function ChatRoom(){
 
         
         await uploadBytes(imageRef, newImage as File).then((snapshot) => {
-            console.log('Uploaded a blob or file!' + snapshot);
-          });
+            });
           setNewImage(undefined);
 
     }

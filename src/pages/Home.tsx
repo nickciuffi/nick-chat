@@ -24,32 +24,13 @@ export default function Home() {
       if(user?.id === 'noUser') navigate("/login");
     }, [user])
 
-    async function handleCreateChat(){
-
-        await set(ref(database, `chatsToJoin/${user?.id}`), user?.id);
-        navigator.clipboard.writeText(`${user?.id}`)
-      MySwal.fire({
-        title: 'Chat room created!',
-        icon: 'success',
-        html:
-        `<p>Your room code has been copied!</p>`
-      })
-      const chatsToJoinRef = ref(database, `chatsToJoin/${user?.id}`);
-      onValue(chatsToJoinRef, (value) => {
-        console.log(value.val())
-        if(value.val() !== user?.id){
-          navigate(`chat/${value.val()}`);
-        }
-      })
- 
-    }
-
+    
 
     async function handleJoinChat(event: FormEvent){
       event.preventDefault()
       const userCode = user?.id;
-      const dbRef = ref(database);
-      await get(child(dbRef, `chatsToJoin`)).then((snapshot) => {
+      
+     /* await get(child(dbRef, `chatsToJoin`)).then((snapshot) => {
         if(snapshot.exists()) {
           const values = Object.entries(snapshot.val())
 
@@ -70,7 +51,7 @@ export default function Home() {
             MySwal.fire("This room does not exist")
           }
         }
-      })
+      })*/
     }
    
     
