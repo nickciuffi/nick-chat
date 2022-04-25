@@ -34,17 +34,18 @@ export default function Home() {
 
     useEffect(() =>{
      getContacts()
-
+      
     }, [])
 
     async function getContacts(){
       
       const q = query(collection(firestore, "rooms"), where("users", "array-contains", "user1"));
       const unsubscribe = onSnapshot(q, async(snapshot) => {
+        let contactNum = 0
       const contactsFinal = await snapshot.docs.map((e) =>{
+        contactNum++
         const otherName = e.data().users.find((name:string) => name !== "user1")
-        
-         let contactNum = 0;
+          
           return{
             id:contactNum,
             name:otherName,
@@ -56,9 +57,10 @@ export default function Home() {
       })
     }
 
-    async function handleJoinChat(event: FormEvent){
+    async function handleAddContact(event: FormEvent){
       event.preventDefault()
       const userCode = user?.id;
+      console.log(joinCode)
       
      /* await get(child(dbRef, `chatsToJoin`)).then((snapshot) => {
         if(snapshot.exists()) {
@@ -91,7 +93,7 @@ export default function Home() {
         <Header />
        <div className="home-content">
        
-        <form className="enter-chat" >
+        <form className="enter-chat" onSubmit={handleAddContact}>
         <input onChange={event => setJoinCode(event.target.value)}type="text" placeholder="Enter an id profile"/>
         <button>Add profile</button>
         </form>
