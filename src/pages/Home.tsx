@@ -63,10 +63,10 @@ export default function Home() {
        <div className="home-content">
        
         <form className="enter-chat" >
-        <input onChange={event => setJoinCode(event.target.value)}type="text" placeholder="chat room code"/>
-        <button>Enter a chat</button>
+        <input onChange={event => setJoinCode(event.target.value)}type="text" placeholder="Enter an id profile"/>
+        <button>Add profile</button>
         </form>
-        <div className="Contacts">
+        <div className="contacts">
       <Contact />
       <Contact />
       <Contact />

@@ -1,0 +1,20 @@
+.contact{
+    display: flex;
+    width: 100%;
+
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid rgb(138, 138, 138);
+    background-color: rgb(219, 216, 216);
+    border-radius: 20px;
+    padding: 5px 15px;
+
+    p{
+        font-size: 1.3rem;
+
+    }
+    img{
+        height:64px;
+        border-radius: 50%;
+    }
+}
