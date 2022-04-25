@@ -44,11 +44,7 @@ export default function ChatRoom(){
 
     useEffect(() =>{
         getMessages()
-        const colRef = collection(firestore, "rooms", "user4_id-user2_id", "messages");
-        const unsub = onSnapshot(colRef, (col) => {
-            
-        });
-        
+
            
     }, [])
 
@@ -56,7 +52,7 @@ export default function ChatRoom(){
         const colRef = collection(firestore, "rooms", chatCode as string, "messages");
         const unsub = onSnapshot(colRef, async() => {
                     const colRefOrdered = query(colRef, orderBy("time"))
-        const docSnap = await getDocs(colRefOrdered);
+                     const docSnap = await getDocs(colRefOrdered);
 
 
         let keyMessages = 0

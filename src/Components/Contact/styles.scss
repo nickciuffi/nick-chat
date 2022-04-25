@@ -1,10 +1,13 @@
+@import "../../styles/variables.scss";
+
 .contact{
     display: flex;
     width: 100%;
-
+    cursor: pointer;
     justify-content: space-between;
     align-items: center;
-    border: 2px solid rgb(138, 138, 138);
+    border-bottom: 2px solid $secondary-color;
+    
     background-color: rgb(219, 216, 216);
     border-radius: 20px;
     padding: 5px 15px;
