@@ -1,5 +1,4 @@
 import {initializeApp} from "firebase/app";
-import {getDatabase, ref, set, get, child, push, onValue} from "firebase/database";
 import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from "firebase/auth";
 import {getStorage, ref as refStorage, uploadBytes, getDownloadURL} from 'firebase/storage';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -19,7 +18,6 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp)
 const storage = getStorage()
-const database = getDatabase();
 
 
 
