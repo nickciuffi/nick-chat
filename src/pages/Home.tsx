@@ -3,7 +3,7 @@ import {useEffect, useState, FormEvent} from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import Header from '../Components/Header'
 import '../styles/home.scss'
-import {database, ref, set, get, child, push, onValue} from '../services/firebase'
+import {firestore, collection, addDoc} from '../services/firebase'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
@@ -80,9 +80,7 @@ export default function Home() {
         <Header />
        <div className="home-content">
        
-        <button onClick={() => handleCreateChat()}>Create a Chat</button>
-        <p className="divider">OR</p>
-        <form className="enter-chat" onSubmit={handleJoinChat}>
+        <form className="enter-chat" >
         <input onChange={event => setJoinCode(event.target.value)}type="text" placeholder="chat room code"/>
         <button>Enter a chat</button>
         </form>
