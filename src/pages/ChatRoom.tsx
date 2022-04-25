@@ -69,7 +69,7 @@ export default function ChatRoom(){
         event.preventDefault()
         const hasImg = (newImage !== undefined)
         if(newMessage === "" && !hasImg) return
-       
+        
         const dbRef = ref(database);
         const chatRoom = push(child(dbRef, `chats/${chatCode}/messages`), {
             content: newMessage,
@@ -80,6 +80,7 @@ export default function ChatRoom(){
             sendImage(chatRoom.key);
 
         }
+          
           setNewMessage("");
     }
 
@@ -87,7 +88,7 @@ export default function ChatRoom(){
         const imageRef = refStorage(storage, `images/${chatCode}/${key}`)
 
         
-        uploadBytes(imageRef, newImage as File).then((snapshot) => {
+        await uploadBytes(imageRef, newImage as File).then((snapshot) => {
             console.log('Uploaded a blob or file!' + snapshot);
           });
           setNewImage(undefined);

@@ -4,8 +4,8 @@
     background: rgb(69, 71, 69);
     display:flex;
     justify-content: space-between;
-    padding: 20px 80px;
-    max-height: 100px;
+    padding: 10px 80px;
+    max-height: 80px;
     position: fixed;
     width: 100%;
     z-index: 10000;
@@ -70,7 +70,7 @@
 @media screen and (max-width: 700px){
     .header{
         padding: 20px 40px;
-
+        max-height: 100px;
         .user{
            
            .drop-header{

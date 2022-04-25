@@ -78,8 +78,7 @@ export default function Home() {
     return(
         <div className="home"> 
         <Header />
-        <h2>Whatsapp 2</h2>
-        <div className="home-content">
+       <div className="home-content">
        
         <button onClick={() => handleCreateChat()}>Create a Chat</button>
         <p className="divider">OR</p>

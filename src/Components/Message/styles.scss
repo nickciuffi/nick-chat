@@ -3,10 +3,14 @@
 .message{
     color: #fff;
     font-size:1.5rem;
-    width: 55%;
+    width: 52%;
     padding:10px;
     border-radius: 10px;
     word-wrap: break-word;
+
+    .loading{
+        height:70px;
+    }
 
     a{
         background: transparent;
@@ -54,6 +58,7 @@
 
 @media screen and (max-width:700px){
     .message{
+        width: 65%;
         a{
         img{
             margin: 20px 3%;

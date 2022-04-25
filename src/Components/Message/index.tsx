@@ -3,6 +3,8 @@ import cn from 'classnames'
 import './styles.scss'
 import {useEffect, useState} from 'react'
 import {storage, refStorage, getDownloadURL} from '../../services/firebase'
+import receivedLoad from '../../assets/images/received-load.gif'
+import sentLoad from '../../assets/images/sent-load.gif'
 
 type PropsType = {
     id:string,
@@ -21,15 +23,61 @@ export default function Message(props:PropsType){
     const [imgBig, setImgBig] = useState("");
 
     useEffect(() =>{
+        if(!props.hasImage) return
         setTimeout(() =>{
-            getDownloadURL(refStorage(storage, `images/${props.chatCode}/${props.id}`))
+
+            getDownloadURL(refStorage(storage, `/images/${props.chatCode}/${props.id}`))
             .then((url) => {
                setUrlImg(url)
             }) 
-           
-        }, 2000)
-       
+            .catch(() =>{
+               //lazy load
+                setTimeout(() =>{
+                    getDownloadURL(refStorage(storage, `/images/${props.chatCode}/${props.id}`))
+                    .then((url) => {
+                        console.log(url)
+                       setUrlImg(url)
+                    }) 
+                    .catch(() =>{
+                        //lazy load
+                        setTimeout(() =>{
+                            getDownloadURL(refStorage(storage, `/images/${props.chatCode}/${props.id}`))
+                            .then((url) => {
+                                console.log(url)
+                               setUrlImg(url)
+                            }) 
+                            .catch(() =>{
+                                //lazy load
+                                setTimeout(() =>{
+                                    getDownloadURL(refStorage(storage, `/images/${props.chatCode}/${props.id}`))
+                                    .then((url) => {
+                                        console.log(url)
+                                       setUrlImg(url)
+                                    }) 
+                                    .catch(() =>{
+                                        //lazy load
+                                        setTimeout(() =>{
+                                            getDownloadURL(refStorage(storage, `/images/${props.chatCode}/${props.id}`))
+                                            .then((url) => {
+                                                console.log(url)
+                                               setUrlImg(url)
+                                            }) 
+                                        }, 15000)
+                                        }
+                                        )
+                                }, 10000)
+                                }
+                                )
+                        }, 60000)
+                        }
+                    )
+                }, 3000)
+                }
+            )
+        }, 1000)
     }, [])
+
+    
 
     function handleImgClick(event:any){
 
@@ -52,7 +100,10 @@ export default function Message(props:PropsType){
       { 
           props.hasImage?
           urlImg === ""?
-          <p>Loading...</p>
+          props.author !== user?.id?
+          <img className="loading" src={receivedLoad} alt="loading..." />
+          :
+          <img className="loading" src={sentLoad} alt="loading..." />
           :
           <a onClick={event => handleImgClick(event)}>
           <img id={props.id} src={urlImg} alt={`image from${props.id}`}/>
