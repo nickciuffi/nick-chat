@@ -6,6 +6,7 @@ import '../styles/home.scss'
 import {firestore, collection, addDoc} from '../services/firebase'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import Contact from '../Components/Contact'
 
 type chatType = {
   creatorId: string
@@ -65,6 +66,12 @@ export default function Home() {
         <input onChange={event => setJoinCode(event.target.value)}type="text" placeholder="chat room code"/>
         <button>Enter a chat</button>
         </form>
+        <div className="Contacts">
+      <Contact />
+      <Contact />
+      <Contact />
+
+      </div>
         </div>
         </div>
         

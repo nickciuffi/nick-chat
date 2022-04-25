@@ -2,7 +2,7 @@ import {useParams, useNavigate} from 'react-router-dom'
 import Header from '../Components/Header'
 import Message from '../Components/Message'
 import {useState, useEffect, FormEvent, EventHandler} from 'react'
-import {firestore, getDoc, addDoc, doc, collection, storage, refStorage, uploadBytes} from '../services/firebase'
+import {firestore, getDoc, addDoc, doc, collection, orderBy, query, onSnapshot, storage, refStorage, uploadBytes} from '../services/firebase'
 import '../styles/chatRoom.scss'
 import {useAuth} from '../hooks/useAuth'
 import {IoMdSend, IoMdPhotos} from 'react-icons/io'
@@ -44,14 +44,20 @@ export default function ChatRoom(){
 
     useEffect(() =>{
         getMessages()
+        const colRef = collection(firestore, "rooms", "user4_id-user2_id", "messages");
+        const unsub = onSnapshot(colRef, (col) => {
+            
+        });
         
            
     }, [])
 
     async function getMessages(){
-        const messagesRef = await getDocs(collection(firestore, "rooms"));
-        const docRef = collection(firestore, "rooms", "user1_id-user2_id", "messages");
-        const docSnap = await getDocs(docRef);
+        const colRef = collection(firestore, "rooms", chatCode as string, "messages");
+        const unsub = onSnapshot(colRef, async() => {
+                    const colRefOrdered = query(colRef, orderBy("time"))
+        const docSnap = await getDocs(colRefOrdered);
+
 
         let keyMessages = 0
         const messagesToAdd = await docSnap.docs.map((doc) =>{
@@ -66,6 +72,8 @@ export default function ChatRoom(){
                    
         })
         setMessages(messagesToAdd)
+        })
+
     }
 
 
@@ -84,11 +92,12 @@ export default function ChatRoom(){
             sendImage(message.key);
 
         }*/
-        const colRef = collection(firestore, "rooms", "user1_id-user2_id", "messages");
+        const colRef = collection(firestore, "rooms", chatCode as string, "messages");
         const docRef = await addDoc(colRef, {
             content: newMessage,
             author:user?.id,
             hasImage:hasImg,
+            time: + new Date()
           });
           if(hasImg){
             sendImage(docRef.id);
