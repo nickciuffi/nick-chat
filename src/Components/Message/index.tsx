@@ -35,7 +35,7 @@ export default function Message(props:PropsType){
                 setTimeout(() =>{
                     getDownloadURL(refStorage(storage, `/images/${props.chatCode}/${props.id}`))
                     .then((url) => {
-                        console.log(url)
+                        
                        setUrlImg(url)
                     }) 
                     .catch(() =>{
@@ -43,7 +43,7 @@ export default function Message(props:PropsType){
                         setTimeout(() =>{
                             getDownloadURL(refStorage(storage, `/images/${props.chatCode}/${props.id}`))
                             .then((url) => {
-                                console.log(url)
+                                
                                setUrlImg(url)
                             }) 
                             .catch(() =>{
@@ -51,7 +51,7 @@ export default function Message(props:PropsType){
                                 setTimeout(() =>{
                                     getDownloadURL(refStorage(storage, `/images/${props.chatCode}/${props.id}`))
                                     .then((url) => {
-                                        console.log(url)
+                                        
                                        setUrlImg(url)
                                     }) 
                                     .catch(() =>{
@@ -59,7 +59,7 @@ export default function Message(props:PropsType){
                                         setTimeout(() =>{
                                             getDownloadURL(refStorage(storage, `/images/${props.chatCode}/${props.id}`))
                                             .then((url) => {
-                                                console.log(url)
+                                                
                                                setUrlImg(url)
                                             }) 
                                         }, 15000)

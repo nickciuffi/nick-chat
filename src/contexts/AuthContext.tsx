@@ -1,10 +1,10 @@
+import { addDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import { useEffect, useState, createContext, ReactNode } from "react";
-import {auth, GoogleAuthProvider, signInWithPopup} from '../services/firebase'
+import {firestore, collection, query, where, auth, GoogleAuthProvider, signInWithPopup} from '../services/firebase'
 
   type AuthContextType = {
     user: User | undefined,
     signInWithGoogle: () => Promise<void>;
-    test:string,
   }
   
   type User ={
@@ -46,6 +46,10 @@ export function AuthContextProvider(props: AuthContextProviderProps){
       }
   
     }, []);
+
+    useEffect(() =>{
+      loginFirestore()
+    }, [user])
   
     async function signInWithGoogle(){
       const provider = new GoogleAuthProvider();
@@ -62,12 +66,36 @@ export function AuthContextProvider(props: AuthContextProviderProps){
             name: displayName,
             avatar: photoURL
           })
+          
       }
     }
-    const test = "ola"
+
+    async function loginFirestore(){
+      if(user === undefined || user.id ==="noUser") return
+
+      const users = collection(firestore, "users");
+      const q = query(users, where("id", "==", user?.id))
+      const usersWithId = await getDocs(q)
+      if(usersWithId.empty){
+        //create user in firestore
+        createUser()
+      }
+      else{
+        console.log("user already exists")
+      }
+    }
+
+    async function createUser(){
+      
+      await setDoc(doc(firestore, "users", `${user?.id}`), { 
+        id:user?.id,
+        name:user?.name,
+        image:user?.avatar,
+      })
+    }
 
     return (
-        <AuthContext.Provider value={{user, signInWithGoogle, test}}>
+        <AuthContext.Provider value={{user, signInWithGoogle}}>
             {props.children}
         </AuthContext.Provider>
     );
