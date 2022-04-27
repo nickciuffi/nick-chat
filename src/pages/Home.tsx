@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Contact from '../Components/Contact'
 import { getDocs, setDoc } from 'firebase/firestore';
+import {AiOutlineClose} from 'react-icons/ai'
 
 type chatType = {
   creatorId: string
@@ -19,6 +20,15 @@ type contactType = {
   image:string,
 }
 
+type roomType = {
+  users:string[],
+  usersInfo:{
+    id:string,
+    image:string,
+    name:string,
+  }[]
+}
+
  
 export default function Home() {
 
@@ -27,7 +37,7 @@ export default function Home() {
     const {signInWithGoogle, user} = useAuth();
     const navigate = useNavigate();
     const [newContact, setNewContact] = useState('');
-    const [contacts, setContacts] = useState<any>([]);
+    const [contacts, setContacts] = useState<contactType[]>([]);
 
     useEffect(() =>{
       if(user?.id === 'noUser') navigate("/login");
@@ -44,25 +54,21 @@ export default function Home() {
       const q = query(collection(firestore, "rooms"), where(`users`, "array-contains", `${user?.id}`));
       const unsubscribe = onSnapshot(q, async(snapshot) => {
         const contactsFinal = await snapshot.docs.map((e) =>{
-        const otherId = e.data().usersInfo.find(async(name:string) => name !== user?.id)
-
-       
+        const otherUser = e.data().usersInfo.find((name:any) => name.id !== user?.id)
+         
        // const {otherImage, otherName} = await getInfoUser(otherId)
        
           return{
-            id:otherId.id as string,
-            name:otherId.name as string,
-            image:otherId.image as string,
+            id:otherUser.id as string,
+            name:otherUser.name as string,
+            image:otherUser.image as string,
             chatCode:e.id as string,
           }
 
         })
         
         setContacts(contactsFinal)
-        console.log(await contactsFinal)
-
         
-
       })
     }
 
@@ -78,7 +84,22 @@ export default function Home() {
 
     async function handleAddContact(event: FormEvent){
       event.preventDefault()
-      if(user?.id === "noUser" || user === undefined || newContact === user?.id) return
+      if(user?.id === "noUser" || user === undefined) return
+      if(contacts.some(data => data.id === newContact)){
+        Swal.fire({
+          text:"You already have this contact",
+          confirmButtonColor:"#4dc45c"
+        }) 
+        return
+      }
+      if(user?.id === newContact){
+        Swal.fire({
+          text:"You can`t add yourself",
+          confirmButtonColor:"#4dc45c"
+        }) 
+        setNewContact("")
+        return
+      }
       const userCode = user?.id;
       const usersRef = collection(firestore, "users");
 
@@ -92,49 +113,73 @@ export default function Home() {
           chatCode:`${cont.id}-${user?.id}`,
           image:cont.image,
         }
-        //setContacts(currentContacts => [...currentContacts, contactToAdd.docs[0].data()])
-        console.log([...contacts, contactToAdd.docs[0].data()])
+        await addRoomFirestore(newContactData)
+        setContacts([...contacts, newContactData])
       }
       else{
-        console.log("User not found")
+        Swal.fire({
+          text:"User not found",
+          confirmButtonColor:"#4dc45c"
+        }) 
+        setNewContact("")
       }
 
       
-     /* await get(child(dbRef, `chatsToJoin`)).then((snapshot) => {
-        if(snapshot.exists()) {
-          const values = Object.entries(snapshot.val())
+     
+    }
+    async function addRoomFirestore(data:contactType){
+      const roomsRef = collection(firestore, "rooms");
+      const roomData:roomType = {
+        users:[
+        data.id,
+        user?.id as string,
+        ],
+        usersInfo:[{
+          id:data.id as string,
+          name:data.name,
+          image:data.image,
+        },
+        {
+          id:user?.id as string,
+          name:user?.name as string,
+          image:user?.avatar as string,
+        }]
+      }
 
-          if(joinCode === user?.id){
-            MySwal.fire("You can`t enter your own chat")
-            return;
-          }
-          if(values.some(value =>value[1] == joinCode)){
-            //if the room exists
-            
-           const chatRoom = push(child(dbRef, `chats`), {
-              users: [userCode, joinCode]
-            })
-            set(ref(database, `chatsToJoin/${joinCode}`), chatRoom.key);
-            navigate(`chat/${chatRoom.key}`)
-          }
-          else{
-            MySwal.fire("This room does not exist")
-          }
-        }
-      })*/
+      await setDoc(doc(roomsRef, `${data.chatCode}`), roomData)
     }
    
-    
+    function handleAddContactVisible(){
+      const button = document.querySelector(".add-contact-btn")
+      button?.classList.add("invisible")
+      const addContact = document.querySelector(".add-contact")
+      addContact?.classList.remove("invisible")
+
+    }
+    function handleAddContactInvisible(){
+      const button = document.querySelector(".add-contact-btn")
+      button?.classList.remove("invisible")
+      const addContact = document.querySelector(".add-contact")
+      addContact?.classList.add("invisible")
+
+    }
   
     return(
         <div className="home"> 
         <Header />
        <div className="home-content">
        
-        <form className="enter-chat" onSubmit={handleAddContact}>
-        <input onChange={event => setNewContact(event.target.value)}type="text" placeholder="Enter an id profile"/>
+        <form className="add-contact invisible" onSubmit={handleAddContact}>
+          <div className="header-add-contact">
+            <a onClick={() => handleAddContactInvisible()}>
+          <AiOutlineClose />
+          </a>
+          <p>Add a contact</p>
+          </div>
+        <input value={newContact || ''} onChange={event => setNewContact(event.target.value)}type="text" placeholder="id of a profile"/>
         <button>Add profile</button>
         </form>
+        <button onClick={() => handleAddContactVisible()} className="add-contact-btn">Add Contact</button>
         <div className="contacts">
           <p>Contacts</p>
       <>
@@ -143,7 +188,7 @@ export default function Home() {
       contacts.map((contact:contactType) =>{
        
         return(
-        <Contact key={contact.id} name={contact.name} code={contact.chatCode}/>)
+        <Contact key={contact.id} image={contact.image} name={contact.name} code={contact.chatCode}/>)
       })
       :<p>You have no contacts.</p>
     }

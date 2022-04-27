@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 type contactType = {
     name: string, 
     code: string,
+    image:string,
 }
 
 export default function Contact(props:contactType){
@@ -16,7 +17,7 @@ export default function Contact(props:contactType){
 
     return(
         <a className="contact" onClick={() => handleContactClick(props.code)}>
-            <img src="https://lh3.googleusercontent.com/a-/AOh14Ghqpue8NcUtSOR1QMyhqrNA44zyCm3mBY9h4T8vsw=s96-c" alt="contact image" />
+            <img src={props.image} alt="contact image" />
             <p>{props.name}</p>
         </a>
     )

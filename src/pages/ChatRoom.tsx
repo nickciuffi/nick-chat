@@ -68,7 +68,8 @@ export default function ChatRoom(){
                    
         })
         setMessages(messagesToAdd)
-        })
+       console.log(messagesToAdd)
+         })
 
     }
 

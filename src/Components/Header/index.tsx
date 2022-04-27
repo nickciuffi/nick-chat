@@ -18,6 +18,10 @@ export default function Header() {
       });
     }
 
+    function handleCopyId(){
+      console.log("copy")
+    }
+
   return (
     <div className="header">
         <Link to="/">
@@ -41,6 +45,7 @@ export default function Header() {
             <p className="logged">
             {user?.name}    
             </p>
+            <a onClick={() => handleCopyId()}>Copy id</a>
             <a onClick={() =>handleLogOut()}>Sair</a>
             </div>
             </>
