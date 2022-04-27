@@ -45,6 +45,14 @@
                 text-decoration: underline;
                 font-size: 1.4rem;
                 cursor: pointer;
+                &.log-out{
+                    border-radius: 10px;
+                    border: 2px solid red;
+                    padding: 5px;
+                    margin-top:5px;
+                    color: rgb(214, 15, 15);
+                    text-decoration: none;
+                }
             }
         }
         p{

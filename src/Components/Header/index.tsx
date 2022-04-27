@@ -46,7 +46,7 @@ export default function Header() {
             {user?.name}    
             </p>
             <a onClick={() => handleCopyId()}>Copy id</a>
-            <a onClick={() =>handleLogOut()}>Sair</a>
+            <a className="log-out" onClick={() =>handleLogOut()}>Log Out</a>
             </div>
             </>
             :
