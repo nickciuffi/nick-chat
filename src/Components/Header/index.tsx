@@ -19,7 +19,7 @@ export default function Header() {
     }
 
     function handleCopyId(){
-      console.log("copy")
+      navigator.clipboard.writeText(`${user?.id}`)
     }
 
   return (

@@ -32,7 +32,6 @@ type roomType = {
  
 export default function Home() {
 
-    const MySwal = withReactContent(Swal)
 
     const {signInWithGoogle, user} = useAuth();
     const navigate = useNavigate();
@@ -115,6 +114,8 @@ export default function Home() {
         }
         await addRoomFirestore(newContactData)
         setContacts([...contacts, newContactData])
+        setNewContact("")
+        handleAddContactInvisible();
       }
       else{
         Swal.fire({

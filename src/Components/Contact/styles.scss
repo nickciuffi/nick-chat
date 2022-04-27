@@ -13,10 +13,8 @@
     padding: 5px 15px;
 
     &:hover{
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        background-color: $secondary-color;
+        background-color: rgb(143, 141, 141);
         color: white;
-        border: 4px solid rgb(138, 137, 137);
     }
 
     p{
@@ -36,6 +34,9 @@
         }
         p{
             font-size:1.2rem;
+            max-width: 160px;
+            word-wrap: break-word;
+            overflow: hidden;
         }
     }
 }
