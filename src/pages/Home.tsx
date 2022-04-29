@@ -7,13 +7,14 @@ import {firestore, collection, doc, getDoc, addDoc, query, where, onSnapshot} fr
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Contact from '../Components/Contact'
-import { getDocs, setDoc } from 'firebase/firestore';
+import { getDocs, orderBy, setDoc } from 'firebase/firestore';
 import {AiOutlineClose} from 'react-icons/ai'
 
 type chatType = {
   creatorId: string
 }
 type contactType = {
+  hasMsgs:boolean,
   id:string,
   name: string,
   chatCode:string,
@@ -21,6 +22,8 @@ type contactType = {
 }
 
 type roomType = {
+  hasMsgs:boolean,
+  lastMsg:number,
   users:string[],
   usersInfo:{
     id:string,
@@ -50,14 +53,13 @@ export default function Home() {
 
     async function getContacts(){
       
-      const q = query(collection(firestore, "rooms"), where(`users`, "array-contains", `${user?.id}`));
+      const q = query(collection(firestore, "rooms"), where(`users`, "array-contains", `${user?.id}`), orderBy("lastMsg", "desc"));
       const unsubscribe = onSnapshot(q, async(snapshot) => {
         const contactsFinal = await snapshot.docs.map((e) =>{
         const otherUser = e.data().usersInfo.find((name:any) => name.id !== user?.id)
          
-       // const {otherImage, otherName} = await getInfoUser(otherId)
-       
           return{
+            hasMsgs:e.data().hasMsgs,
             id:otherUser.id as string,
             name:otherUser.name as string,
             image:otherUser.image as string,
@@ -71,16 +73,7 @@ export default function Home() {
       })
     }
 
-    async function getInfoUser(id:string){
-      const q = query(collection(firestore, "users"), where("id", "==", `${id}`))
-      
-      const userInfo = await getDocs(q)
-      
-      const otherName = userInfo.docs[0].data().name;
-      const otherImage = userInfo.docs[0].data().image;
-      return ({otherName, otherImage})
-    }
-
+    
     async function handleAddContact(event: FormEvent){
       event.preventDefault()
       if(user?.id === "noUser" || user === undefined) return
@@ -107,6 +100,7 @@ export default function Home() {
       if(!contactToAdd.empty){
         const cont = contactToAdd.docs[0].data();
         const newContactData = {
+          hasMsgs:false,
           id:cont.id,
           name:cont.name,
           chatCode:`${cont.id}-${user?.id}`,
@@ -125,12 +119,12 @@ export default function Home() {
         setNewContact("")
       }
 
-      
-     
     }
     async function addRoomFirestore(data:contactType){
       const roomsRef = collection(firestore, "rooms");
       const roomData:roomType = {
+        hasMsgs:false,
+        lastMsg: + new Date(),
         users:[
         data.id,
         user?.id as string,
@@ -189,7 +183,7 @@ export default function Home() {
       contacts.map((contact:contactType) =>{
        
         return(
-        <Contact key={contact.id} image={contact.image} name={contact.name} code={contact.chatCode}/>)
+        <Contact hasMsgs={contact.hasMsgs} key={contact.id} image={contact.image} name={contact.name} code={contact.chatCode}/>)
       })
       :<p>You have no contacts.</p>
     }

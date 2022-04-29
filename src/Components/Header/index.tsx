@@ -1,9 +1,10 @@
 import React from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-import Logo from '../../assets/images/logo.svg'
+import copy from "copy-to-clipboard"
 import { useAuth } from '../../hooks/useAuth'
 import './index.scss'
 import {auth, signOut} from '../../services/firebase'
+import Swal from 'sweetalert2'
 
 export default function Header() {
 
@@ -19,7 +20,12 @@ export default function Header() {
     }
 
     function handleCopyId(){
-      navigator.clipboard.writeText(`${user?.id}`)
+      copy(`${user?.id}`)
+      Swal.fire({
+        title:"Id copied",
+        text:"You can send it to your friends and have amazing chats with them",
+        confirmButtonColor:"#4dc45c"
+      }) 
     }
 
   return (

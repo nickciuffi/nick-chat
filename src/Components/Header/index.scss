@@ -29,7 +29,7 @@
             flex-direction: column;
             position: absolute;
             transform: translate(-33%, 90%);
-            background-color: rgb(134, 133, 133);
+            background-color: rgb(167, 166, 166);
             padding: 15px 10px;
             gap: 10px;
             width: 300%;
@@ -43,14 +43,14 @@
             a{
                 color: rgb(255, 255, 255);
                 text-decoration: underline;
-                font-size: 1.4rem;
+                font-size: 1.3rem;
                 cursor: pointer;
                 &.log-out{
                     border-radius: 10px;
-                    border: 2px solid red;
+                    border: 2px solid rgb(243, 70, 70);
                     padding: 5px;
                     margin-top:5px;
-                    color: rgb(214, 15, 15);
+                    color: rgb(245, 50, 50);
                     text-decoration: none;
                 }
             }

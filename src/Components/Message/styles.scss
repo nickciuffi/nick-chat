@@ -3,10 +3,42 @@
 .message{
     color: #fff;
     font-size:1.5rem;
-    width: 52%;
     padding:10px;
     border-radius: 10px;
-    word-wrap: break-word;
+    width: 52%;
+
+    > p{
+        display: flex;
+        justify-content: flex-end;
+        gap: 4px;
+        align-items: center;
+        font-size: 1.3rem;
+        margin-top:4px;
+    }
+  
+    > div{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        overflow:hidden;
+
+        p{
+
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+    }
+
+   
+    &.hasImage{
+        display: block;
+    }
+
+    svg{
+        display:none;
+    }
 
     .loading{
         height:70px;
@@ -51,6 +83,15 @@
     background-color: $secondary-color;
     align-self: flex-end;
     text-align: end;
+
+    &.notviewed{
+        svg{
+            display: block !important;
+        }
+       >p{
+       }
+       
+    }
 }
 .received{
     background-color: rgb(61, 60, 60);
