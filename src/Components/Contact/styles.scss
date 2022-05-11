@@ -13,7 +13,7 @@
     padding: 5px 15px;
 
     &.hasmsgs{
-        border: 4px solid $secondary-color;
+        border: 4px solid var(--secondary-color);
        
     }
 
@@ -25,11 +25,12 @@
 
     p{
         font-size: 1.3rem;
-
     }
     img{
+        width: 64px;
         height:64px;
         border-radius: 50%;
+        border: 3px solid var(--secondary-color)
     }
 }
 
@@ -37,6 +38,7 @@
     .contact{
         img{
             height:48px;
+            width: 48px;
         }
         p{
             font-size:1.2rem;

@@ -10,14 +10,21 @@
     width: 100%;
     z-index: 10000;
     .user{
-       position:relative;
         height: 100%;
         display: flex;
         gap: 15px;
         align-items: center;
+        justify-content: flex-end;
+        
 
-        a{
+        >a{
             cursor: pointer;
+            display: flex;
+            gap: 5px;
+            justify-content: flex-end;
+            max-width:190px;
+            overflow: hidden;
+           
         }
 
         img{
@@ -25,33 +32,49 @@
             height: 60px;
         }
        .drop-header{
-           display: none;
+            display: none;
             flex-direction: column;
             position: absolute;
-            transform: translate(-33%, 90%);
-            background-color: rgb(167, 166, 166);
+            top: 105%;
+            left: 83%;
+            background-color: rgb(69, 71, 69);
             padding: 15px 10px;
             gap: 10px;
-            width: 300%;
+            width: 16%;
             border-radius: 10px;
             align-items: center;
             overflow: hidden;
-
+           
             &.visible{
                 display:flex;
             }
+            h2{
+                color: white;
+                font-weight: bold;
+                text-align: center;
+            }
             a{
                 color: rgb(255, 255, 255);
-                text-decoration: underline;
-                font-size: 1.3rem;
+                text-decoration: none;
+                font-size: 1.2rem;
+                padding: 7px 10px;
+                margin-top:5px;
+                border-radius: 10px;
+                background-color:var(--secondary-color);
+                text-align: center;
                 cursor: pointer;
+
+               
+               
+
+
                 &.log-out{
-                    border-radius: 10px;
-                    border: 2px solid rgb(243, 70, 70);
-                    padding: 5px;
-                    margin-top:5px;
-                    color: rgb(245, 50, 50);
-                    text-decoration: none;
+                    color: rgb(247, 247, 247);
+                    background-color:rgb(243, 70, 70);
+                }
+                &.delete{
+                    color: rgb(247, 247, 247);
+                    background-color:rgb(243, 70, 70);
                 }
             }
         }
@@ -59,9 +82,19 @@
             color: white;
             font-size:1.2rem;
             text-align: center;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
             &.not-logged{
                 font-size:1.4rem;
                 line-height:60px;
+            }
+
+            input{
+                height: 25px;
+                width: 25px;
+                border-radius: 8px;
             }
         }
     }
@@ -80,10 +113,19 @@
         padding: 20px 40px;
         max-height: 100px;
         .user{
-           
+            >a{
+                max-width:190px;
+            }
            .drop-header{
-               width: 200%;
-               transform: translate(-25%, 83%);
+               width: 36%;
+               right:0px;
+               top: 105%;
+               left: 60%;
+               max-width: 135px;
+
+               .delete-chat{
+                   font-size:1.2rem;
+               }
            }
             
         }

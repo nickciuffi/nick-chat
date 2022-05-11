@@ -5,7 +5,7 @@ import Header from '../Components/Header'
 
 export default function LogIn() {
 
-    const {signInWithGoogle} = useAuth()
+    const {signInWithGoogle, user} = useAuth()
     const navigate = useNavigate(); 
 
     async function handleLogIn(){
@@ -15,7 +15,7 @@ export default function LogIn() {
 
   return (
     <>
-    <Header />
+    <Header/>
     <div className="login">
         <h2>LogIn</h2>
         <button onClick={() => handleLogIn()}>LogIn with Google</button>

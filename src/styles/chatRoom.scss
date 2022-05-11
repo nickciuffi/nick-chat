@@ -6,6 +6,10 @@
     flex-direction: column;
     justify-content: flex-end;
 
+    #file-upload-button{
+        display:none;
+    }
+
     .msg-sender{
         width: 100%;
         background-color: rgb(94, 91, 91);
@@ -38,7 +42,7 @@
         }
         label{
             &.filed{
-                background-color:$secondary-color;
+                background-color:var(--secondary-color);
             }
         }
         button, label{

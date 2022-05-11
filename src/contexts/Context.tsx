@@ -2,9 +2,13 @@ import { addDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import { useEffect, useState, createContext, ReactNode } from "react";
 import {firestore, collection, query, where, auth, GoogleAuthProvider, signInWithPopup} from '../services/firebase'
 
-  type AuthContextType = {
+  type ContextType = {
     user: User | undefined,
     signInWithGoogle: () => Promise<void>;
+    dropOpen:boolean,
+    setDropOpen:any,
+    theme:string, 
+    setTheme:any,
   }
   
   type User ={
@@ -13,15 +17,17 @@ import {firestore, collection, query, where, auth, GoogleAuthProvider, signInWit
     avatar:string,
   }
 
-  type AuthContextProviderProps = {
+  type ContextProviderProps = {
       children: ReactNode
   }
 
-export const AuthContext = createContext({} as AuthContextType)
+export const Context = createContext({} as ContextType)
 
-export function AuthContextProvider(props: AuthContextProviderProps){
+export function ContextProvider(props: ContextProviderProps){
 
     const [user, setUser] = useState<User>();
+    const [dropOpen, setDropOpen] = useState(false)
+    const [theme, setTheme] = useState("#4d63c4")
 
     useEffect(() =>{
       const unsubscribe = auth.onAuthStateChanged(user =>{
@@ -95,8 +101,8 @@ export function AuthContextProvider(props: AuthContextProviderProps){
     }
 
     return (
-        <AuthContext.Provider value={{user, signInWithGoogle}}>
+        <Context.Provider value={{user, signInWithGoogle, dropOpen, setDropOpen, theme, setTheme}}>
             {props.children}
-        </AuthContext.Provider>
+        </Context.Provider>
     );
 }

@@ -10,7 +10,10 @@ import {AiOutlineEyeInvisible} from 'react-icons/ai'
 type PropsType = {
     id:string,
     content: string,
-    author: string,
+    author: {
+        id:string,
+        name:string,
+    },
     hasImage:boolean,
     chatCode:string,
     viewed:boolean,
@@ -105,13 +108,17 @@ export default function Message(props:PropsType){
 
     return(
       
-        <div className={cn('message', {send:props.author === user?.id}, {received:props.author !== user?.id}, {notviewed:props.viewed === false}, {hasImage:props.hasImage})}>
-
+        <div className={cn('message', {send:props.author.id === user?.id}, {received:props.author.id !== user?.id}, {notviewed:props.viewed === false}, {hasImage:props.hasImage})}>
+            {props.author.id !== user?.id?
+            <p className="author">{props.author.name}</p>
+            :
+            null
+            }
       <>
       { 
           props.hasImage?
           urlImg === ""?
-          props.author !== user?.id?
+          props.author.id !== user?.id?
           <img className="loading" src={receivedLoad} alt="loading..." />
           :
           <img className="loading" src={sentLoad} alt="loading..." />

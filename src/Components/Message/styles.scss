@@ -2,10 +2,17 @@
 
 .message{
     color: #fff;
-    font-size:1.5rem;
+    font-size:1.7rem;
     padding:10px;
     border-radius: 10px;
     width: 52%;
+
+    .author{
+        text-align: start;
+        justify-content: flex-start;
+        margin-bottom:4px;
+        color: var(--secondary-color);
+    }
 
     > p{
         display: flex;
@@ -14,17 +21,18 @@
         align-items: center;
         font-size: 1.3rem;
         margin-top:4px;
+        padding: 0px 10px;
     }
   
     > div{
+        padding: 0px 10px;
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
         overflow:hidden;
 
         p{
-
             overflow-wrap: break-word;
             word-wrap: break-word;
             word-break: break-word;
@@ -80,7 +88,7 @@
 
 }
 .send{
-    background-color: $secondary-color;
+    background-color: var(--secondary-color);
     align-self: flex-end;
     text-align: end;
 
@@ -88,18 +96,31 @@
         svg{
             display: block !important;
         }
-       >p{
-       }
-       
+      
     }
 }
 .received{
     background-color: rgb(61, 60, 60);
+
+    >div{
+    justify-content: flex-start;
+    }
 }
 
 @media screen and (max-width:700px){
     .message{
         width: 65%;
+        font-size: 1.5rem;
+
+        
+
+        >div{
+            padding: 0;
+        }
+        >p{
+            padding: 0;
+        }
+
         a{
         img{
             margin: 20px 3%;
