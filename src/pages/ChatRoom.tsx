@@ -316,7 +316,7 @@ export default function ChatRoom(){
     }
     async function handleChangeGroupName(){
         handleDropdown()
-       const newName = await Swal.fire({
+       const newName:any = await Swal.fire({
             title:"Group name change", 
             text:"Choose a name",
             input: 'text',
@@ -329,6 +329,16 @@ export default function ChatRoom(){
             
         })
         if(newName === undefined) return
+        if(newName.value.length > 15){
+            Swal.fire({
+                title:"Error",
+                text:"You can`t choose such a long name",
+                confirmButtonColor:theme,
+                showCancelButton:false,
+            })
+                 return
+            
+        }
         const roomInfo = await getDoc(doc(firestore, "rooms", `${chatCode}`))
         const roomInfoRight:any = roomInfo.data()
         const newInfo = {
