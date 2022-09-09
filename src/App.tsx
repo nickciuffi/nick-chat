@@ -10,10 +10,11 @@ import {
   Routes,
 } from "react-router-dom";
 import { useEffect } from 'react';
+import { getToken } from 'firebase/messaging';
 
 
 function App() {
- 
+
 
   return (
     <Router>

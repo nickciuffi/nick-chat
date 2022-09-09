@@ -63,7 +63,9 @@ export default function Home() {
     useEffect(() =>{
       
     }, [contacts])
+ 
 
+    
 
     async function getContacts(){
       
