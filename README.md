@@ -24,3 +24,8 @@ For the back-end, I used a bunch of **firebase** products, such as:<br>
 This was My first nice project using React and Firebase, so I could learn a lot during the development process.<br>
 After A LOT of mistakes, I could realize that, even thought firebase is VERY easy to use and configure, it is much better to have your own back-end, so you can have more control of the data in your app.<br>
 This way, after this project, I decided to learn Node.js, that is a technology I always found interesting and useful.
+
+# Take a look
+
+Link: nick-chat.nickciuffi.xyz
+
