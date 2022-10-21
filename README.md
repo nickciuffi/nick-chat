@@ -1,6 +1,6 @@
 # Nick Chat
 
-This is a complete chat app, where the user can create conversations and groups with others.<br>
+This is a complete chat app, where the user can create private and group conversations.<br>
 Inside the chats, the user can send texts, images or emogis.
 
 # How it was made:
