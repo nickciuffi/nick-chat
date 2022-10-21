@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Nick Chat
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a complete chat app, where the user can create conversations nad groups with others.
+Inside the chats, the user can send texts, images or emogis.
+
 
 ## Available Scripts
 
