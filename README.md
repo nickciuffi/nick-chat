@@ -7,17 +7,17 @@ Inside the chats, the user can send texts, images or emogis.
 
 ## Front-end
 
-For the front-end, I used the famous library React, with SASS and typescript.<br>
+For the front-end, I used the famous library **React**, with **SASS** and **typescript**.<br>
 This was my first "Big" project using React, so I was still a little confused when working with components.
 
 ## Back-end
 
-For the back-end, I used a bunch of firebase products, such as:
--User Authentication;
--Firestore;
--Realtime database (Which I ended up changing to Firestore);
--Storage;
--Hosting;
+For the back-end, I used a bunch of **firebase** products, such as:<br>
+- User Authentication;
+- Firestore;
+- Realtime database (Which I ended up changing to Firestore);
+- Storage;
+- Hosting;
 
 # Conclusion
 
