@@ -27,5 +27,5 @@ This way, after this project, I decided to learn Node.js, that is a technology I
 
 # Take a look
 
-Link: nick-chat.nickciuffi.xyz
+Link: https://nick-chat.nickciuffi.xyz
 
